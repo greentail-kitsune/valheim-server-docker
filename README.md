@@ -1,8 +1,8 @@
-# lloesche/valheim-server Docker image
-![Valheim](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/Logo_valheim.png "Valheim")
+# greentail-kitsune/valheim-server Docker image
+![Valheim](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/Logo_valheim.png "Valheim")
 
 Valheim Server in a Docker Container (with [BepInEx](#bepinexpack-valheim) and [ValheimPlus](#valheimplus) support)  
-This project is hosted at [https://github.com/lloesche/valheim-server-docker](https://github.com/lloesche/valheim-server-docker)  
+This project is hosted at [https://github.com/greentail-kitsune/valheim-server-docker](https://github.com/greentail-kitsune/valheim-server-docker)  
 
 
 # Table of contents
@@ -64,7 +64,7 @@ This project is hosted at [https://github.com/lloesche/valheim-server-docker](ht
 
 # Basic Docker Usage
 
-The name of the Docker image is `ghcr.io/lloesche/valheim-server`.
+The name of the Docker image is `ghcr.io/greentail-kitsune/valheim-server`.
 
 Volume mount the server config directory to `/config` within the Docker container.
 
@@ -88,7 +88,7 @@ $ docker run -d \
     -e SERVER_NAME="My Server" \
     -e WORLD_NAME="Neotopia" \
     -e SERVER_PASS="secret" \
-    ghcr.io/lloesche/valheim-server
+    ghcr.io/greentail-kitsune/valheim-server
 ```
 
 Warning: `SERVER_PASS` must be at least 5 characters long. Otherwise `valheim_server.x86_64` will refuse to start!
@@ -186,7 +186,7 @@ The default filter removes:
 - Empty log lines
 - Log lines consisting of a single space (wtf?)
 - A repeating line saying `(Filename: ./Runtime/Export/Debug/Debug.bindings.h Line: 35)`
-- Lines flooding the log with `Assertion Failed` warnings on packet processing timeouts (See [#104](https://github.com/lloesche/valheim-server-docker/discussions/104))
+- Lines flooding the log with `Assertion Failed` warnings on packet processing timeouts (See [#104](https://github.com/greentail-kitsune/valheim-server-docker/discussions/104))
 - If ValheimPlus is turned on lines starting with `Fallback handler could not load library`
 
 
@@ -349,7 +349,7 @@ Enabled=true
 
 All existing configuration in those files is retained and a backup of the old config is created as e.g. `/config/valheimplus/valheim_plus.cfg.old` before writing the new config file.
 
-You could generate your own custom plugin config from environment variables using [the `POST_BEPINEX_CONFIG_HOOK` event hook](#event-hooks) and [`env2cfg`](https://github.com/lloesche/valheim-server-docker/tree/main/env2cfg).
+You could generate your own custom plugin config from environment variables using [the `POST_BEPINEX_CONFIG_HOOK` event hook](#event-hooks) and [`env2cfg`](https://github.com/greentail-kitsune/valheim-server-docker/tree/main/env2cfg).
 
 
 # System requirements
@@ -376,7 +376,7 @@ SERVER_PUBLIC=true
 Then enable the Docker container on system boot
 ```
 $ sudo mkdir -p /etc/valheim /opt/valheim
-$ sudo curl -o /etc/systemd/system/valheim.service https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/valheim.service
+$ sudo curl -o /etc/systemd/system/valheim.service https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/valheim.service
 $ sudo systemctl daemon-reload
 $ sudo systemctl enable valheim.service
 $ sudo systemctl start valheim.service
@@ -393,7 +393,7 @@ WORLD_NAME=Dedicated
 SERVER_PASS=secret
 SERVER_PUBLIC=true
 EOF
-curl -o $HOME/valheim-server/docker-compose.yaml https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/docker-compose.yaml
+curl -o $HOME/valheim-server/docker-compose.yaml https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/docker-compose.yaml
 docker-compose up
 ```
 
@@ -415,7 +415,7 @@ CDK Project for spinning up a Valheim game server on AWS Using ECS Fargate and A
 ## Deploying to Nomad
 ```
 $ sudo mkdir -p /var/lib/valheim/{config,data}
-$ sudo curl -o /var/lib/valheim/valheim.nomad https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/valheim.nomad
+$ sudo curl -o /var/lib/valheim/valheim.nomad https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/valheim.nomad
 $ sudo nomad job run /var/lib/valheim/valheim.nomad
 ```
 
@@ -475,7 +475,7 @@ docker exec -it valheim-server supervisorctl restart valheim-backup
 ```
 
 The restart can also be done from [the Supervisor web UI](#supervisor).
-![Backup Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/backup1.png "Backup Step 1")
+![Backup Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/backup1.png "Backup Step 1")
 
 
 # Finding Your Server
@@ -490,7 +490,7 @@ There are three ways of getting to your server. Either using the Steam server br
 ## In-game
 When in-game, click on `Join Game` and select `Community`. Wait for the game to load the list of all 4000+ servers.
 Only 200 servers will be shown at a time so we will have to enter part of our server name to filter the view.
-![in-game server browser](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/find1.png "in-game server browser")
+![in-game server browser](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/find1.png "in-game server browser")
 
 ### Joining Directly via Hostname/IP
 
@@ -506,7 +506,7 @@ This method of connecting to your server will work even if your server is not pu
 ## Steam Server Browser
 When using the Steam server browser, in Steam go to `View -> Servers`. Click on `CHANGE FILTERS` and select Game `Valheim`.
 Wait for Steam to load all 4000+ Servers then sort the `SERVERS` column by clicking on its title. Scroll down until you find your server.
-![Steam server browser](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/find2.png "Steam server browser")
+![Steam server browser](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/find2.png "Steam server browser")
 From there you can right-click it and add as a favourite.
 
 Note that in my tests when connecting to the server via the Steam server browser I had to enter the server password twice. Once in Steam and once in-game.
@@ -524,12 +524,12 @@ Steps:
 5) `FIND GAMES AT THIS ADDRESS...`
 6) `ADD SELECTED GAME SERVER TO FAV...`
 
-![Add server manually](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/find3.png "Add server manually")
+![Add server manually](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/find3.png "Add server manually")
 
 Do not use the `ADD THIS ADDRESS TO FAVORITES` button at this point.
 
 NOTE: Sometimes I will get the following error when trying to connect to a LAN server:
-![Steam Server Browser Error](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/find4.png "Steam Server Browser Error")
+![Steam Server Browser Error](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/find4.png "Steam Server Browser Error")
 
 In those cases it sometimes helped to add the server again, but this time using port `2456` and now pressing the `ADD THIS ADDRESS TO FAVORITES` button.
 It will not generate a new entry in the favourites list but seemingly just update the existing one that was originally discovered on port `2457`.
@@ -545,18 +545,18 @@ If you started your server with `SERVER_PUBLIC` set to `false`, you will get the
 Upon startup the server will create a file `/config/adminlist.txt`. In it you can list the IDs of all administrator users.
 
 The ID of a user can be gotten either in-game by pressing ***F2***
-![User ID in-game](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/admin2.png "User ID in-game")
+![User ID in-game](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/admin2.png "User ID in-game")
 
 or in the server logs when a user connects.
-![User ID in logs](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/admin1.png "User ID in logs")
+![User ID in logs](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/admin1.png "User ID in logs")
 
 Administrators can press ***F5*** to open the in-game console and use commands like `ban` and `kick`.
-![Kick a user](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/admin3.png "Kick a user")
+![Kick a user](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/admin3.png "Kick a user")
 
 
 ## Enable Admin Console
 In recent versions of Valheim the game client has to be started with the `-console` flag for ***F5*** to work.
-![Enable Admin Console](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/admin_console1.png "Enable Admin Console")
+![Enable Admin Console](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/admin_console1.png "Enable Admin Console")
 
 
 # Supervisor
@@ -566,7 +566,7 @@ Within the container processes can be started and restarted using the command `s
 Supervisor provides a very simple http interface which can be optionally turned on by supplying `SUPERVISOR_HTTP=true` and a password in `SUPERVISOR_HTTP_PASS`.
 The default `SUPERVISOR_HTTP_USER` is `admin` but can be changed to anything else. Once activated the http server will listen on tcp port `9001` which has to be exposed (`-p 9001:9001/tcp`).
 
-![Supervisor](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/supervisor.png "Supervisor")
+![Supervisor](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/supervisor.png "Supervisor")
 
 
 ## Supervisor API
@@ -683,15 +683,15 @@ Portainer retains the startup CMD from the first time the container ist deployed
 
 Recent changes made it so that the startup CMD of the image was changed. To avoid recreating the container from scratch you can use the "Duplicate/Edit" function of Portainer by following the instructions outlined below.
 
-![Portainer Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/portainer_step1.png "Portainer Step 1")
+![Portainer Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/portainer_step1.png "Portainer Step 1")
 
 Stop the old container (1) and edit the name (2)
 
-![Portainer Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/portainer_step2.png "Portainer Step 2")
+![Portainer Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/portainer_step2.png "Portainer Step 2")
 
 Append `_old` or similar to the name (3) save the change (4) and click "Duplicate/Edit" (5)
 
-![Portainer Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/portainer_step3.png "Portainer Step 3")
+![Portainer Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/portainer_step3.png "Portainer Step 3")
 
 Change the name back to original name (2) (3) (4).
 
@@ -708,35 +708,35 @@ If your server starts and is working delete the old unused image and the old con
 This is not an extensive tutorial, but I hope these screenshots can be helpful.
 Beware that the server can use multiple GB of RAM and produces a lot of CPU load.
 
-![Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step1.png "Step 1")
-![Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step2.png "Step 2")
-![Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step3.png "Step 3")
-![Step 4](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step4.png "Step 4")
-![Step 5](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step5.png "Step 5")
-![Step 6](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step6.png "Step 6")
-![Step 7](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step7.png "Step 7")
-![Step 8](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/step8.png "Step 8")
+![Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step1.png "Step 1")
+![Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step2.png "Step 2")
+![Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step3.png "Step 3")
+![Step 4](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step4.png "Step 4")
+![Step 5](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step5.png "Step 5")
+![Step 6](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step6.png "Step 6")
+![Step 7](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step7.png "Step 7")
+![Step 8](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/step8.png "Step 8")
 
 ## Updating the container image to the latest version
 The process of updating the image clears all data stored inside the container. So before doing a container image upgrade, make absolutely sure that `/config`, which contains your world, is an external volume stored on your NAS (Step 4 of the [First install](#first-install) process). It is also a good idea to copy the latest version of the world backup to another location, like your PC.
-![Update Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update1.png "Update Step 1")
-![Update Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update2.png "Update Step 2")
-![Update Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update3.png "Update Step 3")
-![Update Step 4](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update4.png "Update Step 4")
-![Update Step 5](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update5.png "Update Step 5")
-![Update Step 6](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/update6.png "Update Step 6")
+![Update Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update1.png "Update Step 1")
+![Update Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update2.png "Update Step 2")
+![Update Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update3.png "Update Step 3")
+![Update Step 4](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update4.png "Update Step 4")
+![Update Step 5](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update5.png "Update Step 5")
+![Update Step 6](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/update6.png "Update Step 6")
 
 ### Error after download of new container image
 If you are getting the following error after an Update:
-![Error Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/synology_upgrade_error1.png "Error Step 1")
+![Error Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/synology_upgrade_error1.png "Error Step 1")
 
-![Error Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/synology_upgrade_error2.png "Error Step 2")
+![Error Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/synology_upgrade_error2.png "Error Step 2")
 ```
 "Failure: OCI runtime create failed: container_linux.go:367: [...]"
 ```
 
 You will need to remove the container completely and perform the [First install](#first-install) steps again.
-![Error Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/synology_upgrade_error3.png "Error Step 3")
+![Error Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/synology_upgrade_error3.png "Error Step 3")
 
 Make sure to use the same folder settings as before so the existing `/config` and `/opt/valheim` directories are used.
 
@@ -753,7 +753,7 @@ version: "3"
 
 services: 
   valheim: 
-    image: lloesche/valheim-server
+    image: greentail-kitsune/valheim-server
     cap_add:
       - sys_nice
     volumes: 
@@ -789,31 +789,31 @@ SERVER_PUBLIC=true
 ```
 
 
-![Qnap Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_create_button.png "Qnap Step 1")
+![Qnap Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_create_button.png "Qnap Step 1")
 
-![Qnap Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_create_application.png "Qnap Step 2")
+![Qnap Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_create_application.png "Qnap Step 2")
 
-![Qnap Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_create_yaml.png "Qnap Step 3")
+![Qnap Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_create_yaml.png "Qnap Step 3")
 
 
 
 ## Updating image
 
-![Qnap update Step 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_update_resources.png "Qnap update Step 1")
+![Qnap update Step 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_update_resources.png "Qnap update Step 1")
 
-![Qnap update Step 2](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_update_button.png "Qnap update Step 2")
+![Qnap update Step 2](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_update_button.png "Qnap update Step 2")
 
-In the image name you have to specify the image from the container definition `lloesche/valheim-server`.
+In the image name you have to specify the image from the container definition `greentail-kitsune/valheim-server`.
 
-![Qnap update Step 3](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_update_pull.png "Qnap update Step 3")
+![Qnap update Step 3](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_update_pull.png "Qnap update Step 3")
 
 After the image is downloaded restart the container. As you can see the old image is now unused and the new one is in use by the container. You can now safely delete the old image.
 
-![Qnap update Step 4](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/qnap_update_images.png "Qnap update Step 4")
+![Qnap update Step 4](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/qnap_update_images.png "Qnap update Step 4")
 
 
 ## QNAP ZFS issue
-We have had [a report from a QNAP user](https://github.com/lloesche/valheim-server-docker/issues/275) where Steam failed when using ZFS as the backing filesystem with the following error
+We have had [a report from a QNAP user](https://github.com/greentail-kitsune/valheim-server-docker/issues/275) where Steam failed when using ZFS as the backing filesystem with the following error
 ```
 valheim-updater [ 0%] !!! Fatal Error: Steamcmd needs 250MB of free disk space to update.
 valheim-updater src/tier0/threadtools.cpp (3553) : Assertion Failed: Illegal termination of worker thread 'Thread(0x0x58a1d8f0/0x0xf7780b'
@@ -853,7 +853,7 @@ See [this page](https://openmediavault.readthedocs.io/en/5.x/various/fs_env_vars
 
 For existing filesystems edit `/etc/openmediavault/config.xml` and remove the `noexec` option from the filesystem in question. The file should look something like this
 
-![OMV 1](https://raw.githubusercontent.com/lloesche/valheim-server-docker/main/misc/omv1.png "OMV Step 1")
+![OMV 1](https://raw.githubusercontent.com/greentail-kitsune/valheim-server-docker/main/misc/omv1.png "OMV Step 1")
 
 
 # License
